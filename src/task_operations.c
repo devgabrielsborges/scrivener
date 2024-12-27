@@ -18,7 +18,7 @@ void create_task(char *task_name, char *date, int task_priority) {
     new_task.task_priority = task_priority;
 
     // Write the structure directly to the binary file
-    FILE *file = fopen(".tasks.bin", "ab");
+    FILE *file = fopen("../data/.tasks.bin", "ab");
     if (!file) {
         perror("Failed to open the file");
         return;
@@ -31,7 +31,7 @@ void create_task(char *task_name, char *date, int task_priority) {
 
 
 void visualize_tasks() {
-    FILE *file = fopen(".tasks.bin", "rb");
+    FILE *file = fopen("../data/.tasks.bin", "rb");
     if (!file) {
         perror("Failed to open the file");
         return;
@@ -47,7 +47,7 @@ void visualize_tasks() {
 
 
 void fetch_task(char *task_name, char *new_task_name, char *new_date, int new_priority) {
-    FILE *file = fopen(".tasks.bin", "rb+"); // Open file for reading and writing
+    FILE *file = fopen("../data/.tasks.bin", "rb+"); // Open file for reading and writing
     if (!file) {
         perror("Failed to open the file");
         return;
@@ -81,7 +81,7 @@ void fetch_task(char *task_name, char *new_task_name, char *new_date, int new_pr
 
 
 void delete_task(char *task_name) {
-    FILE *file = fopen(".tasks.bin", "rb"); // Open original file for reading
+    FILE *file = fopen("../data/.tasks.bin", "rb"); // Open original file for reading
     if (!file) {
         perror("Failed to open the file");
         return;
@@ -111,8 +111,8 @@ void delete_task(char *task_name) {
 
     if (task_found) {
         // Replace the original file with the temporary file
-        remove(".tasks.bin");
-        rename(".tasks_temp.bin", ".tasks.bin");
+        remove("../data/");
+        rename(".tasks_temp.bin", "../data/.tasks.bin");
         printf("Task deleted successfully\n");
     } else {
         // Clean up temporary file if no task was found
