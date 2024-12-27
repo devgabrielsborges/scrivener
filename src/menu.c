@@ -7,9 +7,9 @@ void help(){
     printf("Usage: task_manager [OPTION] [ARGS...]\n");
     printf("Options:\n");
     printf("  -h                Show this help message\n");
-    printf("  -i <task> <prio> <date>  Add a new task with name <task> and priority <prio> at the date <date> choiced \n");
+    printf("  -i <task> <date> <prio>  Add a new task with name <task> and date <date> with the priority <prio> \n");
     printf("  -v                View all tasks\n");
-    printf("  -f <old> <new>    Update task name from <old> to <new>\n");
+    printf("  -u <old> <new>    Update task name from <old> to <new>\n");
     printf("  -d <task>         Delete task with name <task>\n");
 }
 

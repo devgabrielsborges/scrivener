@@ -4,8 +4,8 @@
 #include <stdlib.h>
 
 typedef struct task {
-    char *task_name;
-    char *date;
+    char task_name[256];
+    char date[64];
     int task_priority;
 } Task;
 

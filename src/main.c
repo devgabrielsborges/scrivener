@@ -1,4 +1,6 @@
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "task_operations.h"
 #include "menu.h"
@@ -6,42 +8,37 @@
 
 int main(int argc, char *argv[])
 {
-  if (argc < 3 || argc > 5)
+  if (argc == 1 || argv[1] == NULL ||strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
   {
     help();
-    return 1;
+    return 0;
   }
 
-  if (strlen(argv[2]) <= 0)
+  else if (strcmp(argv[1], "-i") == 0 && argc == 5)
   {
-    help();
-    return 2;
+    create_task(argv[2], argv[3], atoi(argv[4]));
   }
 
-
-  if (strcmp(argv[1], "-i") == 0)
-  {
-    create_task(argv[2], argv[3],(int) argv[4]);
-  }
-
-  else if (strcmp(argv[1], "-v") == 0)
+  else if(strcmp(argv[1], "-v") == 0)
   {
     visualize_tasks();
   }
 
-  else if (strcmp(argv[1], "-f"))
+  else if(strcmp(argv[1], "-u") == 0 && argc == 6)
   {
-    fetch_task(argv[2], argv[4],(int) argv[3]); 
+    fetch_task(argv[2], argv[3], argv[4], atoi(argv[5]));
   }
 
-  else if (strcmp(argv[1], "-d") == 0)
+  else if(strcmp(argv[1], "-d") == 0 && argc == 3)
   {
     delete_task(argv[2]);
   }
 
   else
   {
+    printf("Invalid usage\n\n");
     help();
+    return 1;
   }
 
 }
