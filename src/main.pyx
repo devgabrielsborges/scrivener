@@ -29,6 +29,9 @@ def main(int argc, list argv):
     elif strcmp(argv[1].encode(), b"-d") == 0 and argc == 3:
         delete_task(argv[2].encode())
 
+    elif strcmp(argv[1].encode(), b"-a" == 0 and argc == 2):
+        authenticate_google_calendar()
+
     else:
         printf(b"Invalid usage\n\n")
         help()

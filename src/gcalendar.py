@@ -1,7 +1,7 @@
 from google.oauth2.credentials import Credentials
-from google_auth_oautthlib.flow import InstalledAppFlow
+from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-from googleepicclient.discovery import build
+from googleapiclient.discovery import build
 
 import os
 import datetime
@@ -20,7 +20,7 @@ def authenticate_google_calendar():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file("../credentials.json", SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
             creds = flow.run_local_server(port=0)
 
         with open("token.json", "w") as token:
@@ -52,12 +52,12 @@ def list_tasks():
         print(start, event["summary"])
 
 
-def add_task(summary: str, start_date: str, end_date: str, location: str = "America/New_York"):
+def add_task(summary: str, start_date: str, location: str = "America/New_York"):
     authenticate_google_calendar()
     event = {
             "summary": summary,
             "start": {"dateTime": start_date, "timeZone": location},
-            "end": {"dateTime": end_date, "timeZone": location},
+            "end": {"dateTime": start_date, "timeZone": location},
             }
     service = authenticate_google_calendar()
     event = service.events().insert(calendarId="primary", body=event).execute()
@@ -98,4 +98,6 @@ def get_task_id(summary: str):
     return None
 
 
-authenticate_google_calendar()
+if __name__ == "__main__":
+    authenticate_google_calendar()
+    list_tasks()
