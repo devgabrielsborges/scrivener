@@ -28,6 +28,20 @@ Scrivener is a *command-line* task management tool that allows you to *create, v
     pip install -r requirements.txt
     ```
 
+    You may need to create a virtual environment to install
+    the python packages. If you receive an error when trying
+    to `pip install -r requirements.txt`. Create a venv with:
+
+    ```sh
+        python3 -m venv .venv
+    ```
+
+    Then, source it:
+
+    ```sh
+        source .venv/bin/activate
+    ```
+
 3. Run the installation script:
     ```sh
     ./install.sh
