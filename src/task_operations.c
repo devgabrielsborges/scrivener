@@ -5,33 +5,52 @@
 #include "task_operations.h"
 #include "task.h"
 
-void create_task(char *task_name, char *date, int task_priority) {
+#define TASKS_FILE "/.scrivener/tasks.bin"
+
+void get_tasks_file_path(char *buffer, const size_t size) {
+    const char *home = getenv("HOME");
+    if (home) {
+        snprintf(buffer, size, "%s%s", home, TASKS_FILE);
+    } else {
+        fprintf(stderr, "Error: HOME environment variable not set\n");
+        buffer[0] = '\0'; // Empty the buffer to avoid undefined behavior
+    }
+}
+
+void create_task(const char *task_name, const char *date, const int task_priority) {
     Task new_task;
 
     // Copy strings into the fixed-size arrays
     strncpy(new_task.task_name, task_name, sizeof(new_task.task_name) - 1);
-    new_task.task_name[sizeof(new_task.task_name) - 1] = '\0';  // Ensure null-termination
+    new_task.task_name[sizeof(new_task.task_name) - 1] = '\0'; // Ensure null-termination
 
     strncpy(new_task.date, date, sizeof(new_task.date) - 1);
-    new_task.date[sizeof(new_task.date) - 1] = '\0';  // Ensure null-termination
+    new_task.date[sizeof(new_task.date) - 1] = '\0'; // Ensure null-termination
 
     new_task.task_priority = task_priority;
 
-    // Write the structure directly to the binary file
-    FILE *file = fopen("../data/.tasks.bin", "ab");
+    // Get the full path to the tasks file
+    char file_path[256];
+    get_tasks_file_path(file_path, sizeof(file_path));
+
+    FILE *file = fopen(file_path, "ab");
     if (!file) {
         perror("Failed to open the file");
         return;
     }
+
     printf("Creating Task: %s | %s | %i\n", new_task.task_name, new_task.date, new_task.task_priority);
 
     fwrite(&new_task, sizeof(Task), 1, file);
     fclose(file);
 }
 
-
 void visualize_tasks() {
-    FILE *file = fopen("../data/.tasks.bin", "rb");
+    // Get the full path to the tasks file
+    char file_path[256];
+    get_tasks_file_path(file_path, sizeof(file_path));
+
+    FILE *file = fopen(file_path, "rb");
     if (!file) {
         perror("Failed to open the file");
         return;
@@ -45,9 +64,12 @@ void visualize_tasks() {
     fclose(file);
 }
 
+void fetch_task(const char *task_name, const char *new_task_name, const char *new_date, const int new_priority) {
+    // Get the full path to the tasks file
+    char file_path[256];
+    get_tasks_file_path(file_path, sizeof(file_path));
 
-void fetch_task(char *task_name, char *new_task_name, char *new_date, int new_priority) {
-    FILE *file = fopen("../data/.tasks.bin", "rb+"); // Open file for reading and writing
+    FILE *file = fopen(file_path, "rb+"); // Open file for reading and writing
     if (!file) {
         perror("Failed to open the file");
         return;
@@ -79,9 +101,12 @@ void fetch_task(char *task_name, char *new_task_name, char *new_date, int new_pr
     fclose(file);
 }
 
+void delete_task(const char *task_name) {
+    // Get the full path to the tasks file
+    char file_path[256];
+    get_tasks_file_path(file_path, sizeof(file_path));
 
-void delete_task(char *task_name) {
-    FILE *file = fopen("../data/.tasks.bin", "rb"); // Open original file for reading
+    FILE *file = fopen(file_path, "rb"); // Open original file for reading
     if (!file) {
         perror("Failed to open the file");
         return;
@@ -111,8 +136,8 @@ void delete_task(char *task_name) {
 
     if (task_found) {
         // Replace the original file with the temporary file
-        remove("../data/.tasks.bin");
-        rename(".tasks_temp.bin", "../data/.tasks.bin");
+        remove(file_path);
+        rename(".tasks_temp.bin", file_path);
         printf("Task deleted successfully\n");
     } else {
         // Clean up temporary file if no task was found
@@ -120,4 +145,3 @@ void delete_task(char *task_name) {
         printf("Task not found\n");
     }
 }
-
