@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 void help(){
-    printf("Usage: task_manager [OPTION] [ARGS...]\n");
+    printf("Usage: scrivener [OPTION] [ARGS...]\n");
     printf("Options:\n");
     printf("  -h                Show this help message\n");
     printf("  -i <task> <date> <prio>  Add a new task with name <task> and date <date> with the priority <prio> \n");
