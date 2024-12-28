@@ -57,6 +57,8 @@ void visualize_tasks() {
     }
 
     Task new_task;
+
+    printf("NAME | DATE | PRIORITY\n\n");
     while (fread(&new_task, sizeof(Task), 1, file)) {
         printf("%s | %s | %i\n", new_task.task_name, new_task.date, new_task.task_priority);
     }
