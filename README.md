@@ -6,7 +6,7 @@ Scrivener is a *command-line* task management tool that allows you to *create, v
 
 [![Scrivener](https://img.youtube.com/vi/nKTB70At_5U/0.jpg)](https://www.youtube.com/watch?v=nKTB70At_5U)
 
-[Watch on YouTube](https://www.youtube.com/watch?v=nKTB70At_5U)
+https://www.youtube.com/watch?v=nKTB70At_5U
 
 ## Features
 
