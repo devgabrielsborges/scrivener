@@ -172,3 +172,4 @@ cython_debug/
 
 
 .tasks.bin
+credentials.json
