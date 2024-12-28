@@ -2,6 +2,12 @@
 
 Scrivener is a *command-line* task management tool that allows you to *create, view, update, and delete tasks*. It stores tasks in a binary file and provides a simple interface for managing your tasks.
 
+### Video-demo:
+
+[![Scrivener](https://img.youtube.com/vi/nKTB70At_5U/0.jpg)](https://www.youtube.com/watch?v=nKTB70At_5U)
+
+[Watch on YouTube](https://www.youtube.com/watch?v=nKTB70At_5U)
+
 ## Features
 
 - Add new tasks with a name, date, and priority.
